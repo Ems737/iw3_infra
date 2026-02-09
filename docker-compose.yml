@@ -6,6 +6,7 @@ services:
     links:
       - "backend"
       - "adminer"
+      - "frontend"
     environment:
       - TZ=${TZ}
     ports:
@@ -13,6 +14,29 @@ services:
     volumes:
       - ./nginx:/etc/nginx/conf.d
       - /etc/localtime:/etc/localtime:ro
+
+  frontend:
+          #image: iw3-frontend
+    image: frontend:1.0
+    container_name: frontend
+    restart: always
+    expose:
+      - 80
+
+  backend:
+    image: magm3333/tomcat-jdk21:10.1.44
+    container_name: backend
+    restart: always
+    expose:
+      - 8080
+    depends_on:
+      - mysql
+    volumes:
+      - ./tomcat/webapps:/opt/tomcat/webapps
+      - ./tomcat/conf/catalina.properties:/opt/tomcat/conf/catalina.properties
+      - ./tomcat/bin/setenv.sh:/opt/tomcat/bin/setenv.sh
+      - /etc/localtime:/etc/localtime:ro
+
   adminer:
     image: adminer:latest
     container_name: adminer
@@ -23,21 +47,8 @@ services:
       - TZ=${TZ}
     expose:
       - 8080
-  backend:
-    image: magm3333/tomcat-jdk21:10.1.44
-    container_name: backend
-    restart: always
-    environment:
-      - TZ=${TZ}
-    depends_on: 
-      - mysql
-    expose:
-      - 8080
-    volumes:
-      - ./tomcat/webapps:/opt/tomcat/webapps
-      - ./tomcat/conf/catalina.properties:/opt/tomcat/conf/catalina.properties
-      - ./tomcat/bin/setenv.sh:/opt/tomcat/bin/setenv.sh
-      - /etc/localtime:/etc/localtime:ro
+
+
   mysql:
     image: mysql:8.0.43
     container_name: mysql_iw3
@@ -58,6 +69,5 @@ services:
       - mysql-data:/var/lib/mysql
       - /etc/localtime:/etc/localtime:ro
       - ./mysqlinit:/docker-entrypoint-initdb.d
-volumes: 
+volumes:
   mysql-data:
-
