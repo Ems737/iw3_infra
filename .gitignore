@@ -1,1 +1,2 @@
 nginx/cert/fluxgas/privkey.pem
+frontend/*

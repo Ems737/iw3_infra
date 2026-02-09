@@ -47,9 +47,27 @@ cd "$TOMCAT_ROOT"
 unzip -q ROOT.zip
 rm ROOT.zip
 
+echo "=============================="
+echo "DEPLOY FRONTEND"
+echo "=============================="
+
+####################################
+# VARIABLES FRONTEND
+####################################
+FRONTEND_DIR="/home/user/infra_iw32025/frontend"
+GIT_FRONTEND_REPO="https://github.com/SofiaSuppia/Frontend-IW3-final.git"
+GIT_FRONTEND_BRANCH="prod"
+
+# Actualizar Frontend
+cd /home/user/infra_iw32025
+rm -rf "$FRONTEND_DIR"
+git clone -b "$GIT_FRONTEND_BRANCH" "$GIT_FRONTEND_REPO" "$FRONTEND_DIR"
+/home/user/infra_iw32025/frontend/Frontend/buildImage.sh
+
 # Levantar todo
 docker compose -f "$DOCKER_COMPOSE_FILE" up -d
 
 echo "=============================="
 echo "DEPLOY COMPLETADO OK"
 echo "=============================="
+
