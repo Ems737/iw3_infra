@@ -33,6 +33,8 @@ services:
       - mysql
     environment:
       - SPRING_PROFILES_ACTIVE=mysqlprod
+      - SMTP_USER=fluxgasiw3@gmail.com
+      - GMAIL_PASSWORD=ieblizcjzufbhtzh
     volumes:
       - ./tomcat/webapps:/opt/tomcat/webapps
       - ./tomcat/conf/catalina.properties:/opt/tomcat/conf/catalina.properties
