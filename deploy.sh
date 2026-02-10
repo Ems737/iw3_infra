@@ -52,7 +52,7 @@ echo "=============================="
 ####################################
 FRONTEND_DIR="/home/user/infra_iw32025/frontend"
 GIT_FRONTEND_REPO="https://github.com/SofiaSuppia/Frontend-IW3-final.git"
-GIT_FRONTEND_BRANCH="prod"
+GIT_FRONTEND_BRANCH="main"
 
 # Actualizar Frontend
 cd /home/user/infra_iw32025
